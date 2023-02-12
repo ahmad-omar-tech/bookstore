@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.Category;
+import com.example.bookstore.domain.CategoryRepository;
 
 @Controller
 
@@ -16,6 +20,9 @@ public class BookController {
 
 	@Autowired
 	private BookRepository repository;
+	
+	@Autowired
+	private CategoryRepository catrepository;
 
 	@GetMapping("/index")
 	public String book(Model model) {
@@ -31,6 +38,7 @@ public class BookController {
 	@GetMapping("/add")
 	public String addBookForm(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", catrepository.findAll());
 		return "addbook";
 	}
 
@@ -46,10 +54,12 @@ public class BookController {
 		return "redirect:/booklist";
 	}
 
-	@GetMapping("/edit/{id}")
-	public String editBook(@PathVariable("id") long id, Model model) {
+	/*	@GetMapping("/edit/{id}")
+	public String editBook(@PathVariable("id") long id, @PathVariable("cid") long cid, Model model) {
 		Book book = repository.findById(id).get();
+		Category categories = catrepository.findById(cid).get();
 		model.addAttribute("book", book);
+		model.addAttribute("categories", categories);
 		return "editbook";
 	}
 
@@ -59,5 +69,19 @@ public class BookController {
 		repository.save(book);
 		return "redirect:/booklist";
 	}
+	*/
+	
+	@PostMapping(value="/save")
+	public String save(Book book) {
+		repository.save(book);
+		return "redirect:booklist";
+	}
+	
+	@RequestMapping(value="/edit/{id}")
+	public String editBook(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("book", repository.findById(id));
+		model.addAttribute("categories", catrepository.findAll());
+		return "editbook";
+	}	
 
 }
