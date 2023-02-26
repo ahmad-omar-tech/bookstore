@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
-import com.example.bookstore.domain.Category;
 import com.example.bookstore.domain.CategoryRepository;
 
 @Controller

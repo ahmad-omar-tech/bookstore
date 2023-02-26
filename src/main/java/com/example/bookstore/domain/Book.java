@@ -9,87 +9,90 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Book {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	private String title;
-	private String author;
-	private int publicationYear;
-	private String isbn;
-	private double price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String title;
+    private String author;
+    private int publicationYear;
+    private String isbn;
+    private double price;
+    
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    
+    public Book() {
+    }
 
-	@ManyToOne
-	@JoinColumn(name = "cid")
-	private Category category;
+    public Book(String title, String author, int publicationYear, String isbn, double price, Category category) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.isbn = isbn;
+        this.price = price;
+        this.category = category;
+    }
 
-	public Book() {
+    public long getId() {
+        return id;
+    }
 
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Book(Category category, String title, String author, int publicationYear, String isbn, double price) {
-		super();
-		this.category = category;
-		this.title = title;
-		this.author = author;
-		this.publicationYear = publicationYear;
-		this.isbn = isbn;
-		this.price = price;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public int getPublicationYear() {
+        return publicationYear;
+    }
 
-	public String getAuthor() {
-		return author;
-	}
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public String getIsbn() {
+        return isbn;
+    }
 
-	public int getPublicationYear() {
-		return publicationYear;
-	}
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
-	public void setPublicationYear(int publicationYear) {
-		this.publicationYear = publicationYear;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public String getIsbn() {
-		return isbn;
-	}
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    public Category getCategory() {
+        return category;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
+    @Override
+    public String toString() {
+        return "Book [author=" + author + ", category=" + category + ", id=" + id + ", isbn=" + isbn + ", price=" + price
+                + ", publicationYear=" + publicationYear + ", title=" + title + "]";
+    }
 }

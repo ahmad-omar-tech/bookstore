@@ -18,16 +18,14 @@ public class BookStore {
 	}
 
 	@Bean
-    public CommandLineRunner demo(BookRepository repository, CategoryRepository Crepository) {
+    public CommandLineRunner demo(BookRepository repository, CategoryRepository categoryRepository) {
         return (args) -> {
-        	Category c1 = new Category("Novels");
-        	Category c2 = new Category("History");
-        	Crepository.save(c1);
-        	Crepository.save(c2);
-        	//Book b1 = new Book(Crepository.findById((long) 1), "A Farewell to Arms", "Ernest Hemingway", 1929, "123123-23", 55);
-        	//Book b2 = new Book("Value Books", "Animal Farm", "George Orwell", 1945, "456654-5", 46);
-        	//repository.save(b1);
-        	//repository.save(b2);
+        	categoryRepository.save(new Category("Romance"));
+        	categoryRepository.save(new Category("Fantasy"));
+        	Book b1 = new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "123123-23", 55, categoryRepository.findByName("Romance"));
+        	Book b2 = new Book("Animal Farm", "George Orwell", 1945, "456654-5", 46,categoryRepository.findByName("Fantasy"));
+        	repository.save(b1);
+        	repository.save(b2);
         };
     }
 }
