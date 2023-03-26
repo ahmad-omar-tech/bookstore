@@ -22,7 +22,7 @@ public class WebSecurityConfiguration {
 	protected void configure(HttpSecurity http) throws Exception {
         http
         .authorizeHttpRequests()
-            .requestMatchers("/login").permitAll()
+            .requestMatchers("/CSS/**").permitAll()
             .and()
         .formLogin()
             .loginPage("/login")
