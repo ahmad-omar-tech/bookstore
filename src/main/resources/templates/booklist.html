@@ -8,7 +8,9 @@
 <body>
 	<div class="d-flex justify-content-between align-items-center">
 		<h1>Books</h1>
-		<a href="/logout" class="btn btn-danger">Logout</a>
+		<form th:action="@{/logout}" method="post" >
+            <input type="submit" class="btn btn-danger" value="Sign Out"/>
+        </form>
 	</div>
 	<h1>Welcome, <span th:text="${username}"></span> !</h1>
     <table class="table table-striped">
